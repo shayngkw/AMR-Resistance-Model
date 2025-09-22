@@ -1,0 +1,34 @@
+def use_the_bad_drug(day,sensitive,resistant_A,resistant_B,resistant_AB):
+    pA=0
+    pB=1
+    return(pA,pB)
+
+
+results = model.run_model(use_the_bad_drug,cost=0.002,mutation=0.00001) # run the model
+
+
+fig = plt.figure(figsize=(12, 4))
+ax1 = fig.add_subplot(131)
+plt.plot("day", "sensitive",data=results)
+plt.plot("day", "resistant_A",data=results)
+plt.plot("day", "resistant_B",data=results)
+plt.plot("day", "resistant_AB",data=results)
+plt.ylim((0, 1))
+plt.xlabel('Day')
+plt.ylabel('Prevalence')
+plt.legend(['Sensitive', 'Resistant to A', 'Resistant to B', 'Resistant to A and B'])
+ax2 = fig.add_subplot(132)
+plt.plot("day", "usage_A",data=results)
+plt.plot("day", "usage_B",data=results)
+plt.xlabel('Day')
+plt.ylabel('Usage of Antibiotic (proportion)')
+plt.legend(['A', 'B'])
+average_deaths=np.mean(results.deaths)
+ax3 = fig.add_subplot(133)
+plt.plot("day", "deaths",data=results)
+plt.xlabel('Day')
+plt.ylabel('Deaths per 100,000')
+plt.subplots_adjust(wspace=0.4)
+plt.show()
+
+sum(results.deaths)
